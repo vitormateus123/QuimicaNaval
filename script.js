@@ -71,3 +71,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("search-element").addEventListener("click", searchElement);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const elementos = document.querySelectorAll('.nao-metais, .metais-alcalinos, .metais-alcalino-terrosos, .semimetais, .halogenios, .gases-nobres, .outros-metais, .metais-de-transicao, .lantanideos, .actinideos');
+    let selecionados = 0;
+  
+    const atualizarSelecao = () => {
+      elementos.forEach(item => {
+        item.style.pointerEvents = selecionados >= 3 && !item.classList.contains('destaque') ? 'none' : 'auto';
+      });
+    };
+  
+    const alternarSelecao = (elemento) => {
+      elemento.classList.toggle('destaque');
+      selecionados += elemento.classList.contains('destaque') ? 1 : -1;
+    };
+  
+    elementos.forEach(elemento => {
+      elemento.addEventListener('click', () => {
+        if (selecionados < 3 || elemento.classList.contains('destaque')) {
+          alternarSelecao(elemento);
+          atualizarSelecao();
+        }
+      });
+    });
+  });

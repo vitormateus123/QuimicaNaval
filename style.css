@@ -190,13 +190,66 @@ input {
   text-align: center;
 }
 
-.nao-metais { background: #B5D6A7; } /* Verde pastel */
-.metais-alcalinos { background: #F9E79F; } /* Amarelo pastel */
-.metais-alcalino-terrosos { background: #FAD7A0; } /* Laranja pastel */
-.semimetais { background: #AED6F1; } /* Azul claro pastel */
-.halogenios { background: #A3E4D7; } /* Verde água pastel */
-.gases-nobres { background: #85C1E9; } /* Azul pastel */
-.outros-metais { background: #D5DBDB; } /* Cinza azulado pastel */
-.metais-de-transicao { background: #F5B7B1; } /* Rosa pastel */
-.lantanideos { background: #D2B4DE; } /* Roxo pastel */
-.actinideos { background: #D7BDE2; } /*Lilás pastel */
+.nao-metais {
+  background: #B5D6A7; /* Verde pastel */
+  cursor: pointer;
+}
+
+.metais-alcalinos {
+  background: #F9E79F; /* Amarelo pastel */
+  cursor: pointer;
+}
+
+.metais-alcalino-terrosos {
+  background: #FAD7A0; /* Laranja pastel */
+  cursor: pointer;
+}
+
+.semimetais {
+  background: #AED6F1; /* Azul claro pastel */
+  cursor: pointer;
+}
+
+.halogenios {
+  background: #A3E4D7; /* Verde água pastel */
+  cursor: pointer;
+}
+
+.gases-nobres {
+  background: #85C1E9; /* Azul pastel */
+  cursor: pointer;
+}
+
+.outros-metais {
+  background: #D5DBDB;
+  cursor: pointer; /* Cinza azulado pastel */
+}
+
+.metais-de-transicao {
+  background: #F5B7B1; /* Rosa pastel */
+  cursor: pointer;
+}
+
+.lantanideos {
+  background: #D2B4DE; /* Roxo pastel */
+  cursor: pointer;
+}
+
+.actinideos {
+  background: #D7BDE2; /* Lilás pastel */
+  cursor: pointer;
+}
+
+.nao-metais.destaque,
+.metais-alcalinos.destaque,
+.metais-alcalino-terrosos.destaque,
+.semimetais.destaque,
+.halogenios.destaque,
+.gases-nobres.destaque,
+.outros-metais.destaque,
+.metais-de-transicao.destaque,
+.lantanideos.destaque,
+.actinideos.destaque {
+  background-color: yellow; 
+  border: 1px solid red;
+}
