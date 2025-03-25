@@ -253,3 +253,42 @@ input {
   background-color: yellow; 
   border: 1px solid red;
 }
+
+#selecionados {
+  display: flex;
+  flex-direction: column; 
+  align-items: start; 
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: antiquewhite;
+  padding: 10px;
+  width: auto;
+  border-radius: 7px;
+}
+
+#selecionados-topo {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+}
+
+#selecionados h3 {
+  margin: 0;
+}
+
+#selecionados-nomes {
+  margin: 0; 
+}
+
+#limpar-selecao {
+  margin-top: 10px; 
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#limpar-selecao:hover {
+  background-color: darkred;
+}
