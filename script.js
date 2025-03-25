@@ -72,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("search-element").addEventListener("click", searchElement);
 });
 
+//Selecionar os elementos clicando sobre 
+//
 document.addEventListener('DOMContentLoaded', function() {
     const elementos = document.querySelectorAll('.nao-metais, .metais-alcalinos, .metais-alcalino-terrosos, .semimetais, .halogenios, .gases-nobres, .outros-metais, .metais-de-transicao, .lantanideos, .actinideos');
     let selecionados = 0;
