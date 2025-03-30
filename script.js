@@ -108,6 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (element) {
             element.classList.add("highlight");
             errorMessage.style.display = "none";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
         } else {
             errorMessage.textContent = "Nenhum elemento encontrado com os dados fornecidos.";
             errorMessage.style.display = "block";
@@ -115,4 +120,55 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.getElementById("search-element").addEventListener("click", searchElement);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const searchButton = document.getElementById("search-element");
+    const inputs = document.querySelectorAll("#input-period, #input-group, #input-valence");
+
+    function handleEnterKey(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Impede que o formulário seja enviado ou outros comportamentos padrão
+            searchButton.click(); // Simula o clique no botão
+        }
+    }
+
+    // Adiciona o evento de tecla para cada campo de entrada
+    inputs.forEach(input => {
+        input.addEventListener("keypress", handleEnterKey);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const inputs = document.querySelectorAll("#input-period, #input-group, #input-valence");
+
+    inputs.forEach((input, index) => {
+        input.addEventListener("keydown", function (event) {
+            if (event.key === "ArrowDown") {
+                event.preventDefault();
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus(); // Move para o próximo campo (abaixo)
+                }
+            } else if (event.key === "ArrowUp") {
+                event.preventDefault();
+                if (index > 0) {
+                    inputs[index - 1].focus(); // Move para o campo acima
+                }
+            } else if (event.key === "ArrowRight") {
+                if (this.selectionEnd === this.value.length) { // Se o cursor estiver no final do texto
+                    event.preventDefault();
+                    if (index < inputs.length - 1) {
+                        inputs[index + 1].focus(); // Vai para o próximo campo (direita)
+                    }
+                }
+            } else if (event.key === "ArrowLeft") {
+                if (this.selectionStart === 0) { // Se o cursor estiver no início do texto
+                    event.preventDefault();
+                    if (index > 0) {
+                        inputs[index - 1].focus(); // Vai para o campo anterior (esquerda)
+                    }
+                }
+            }
+        });
+    });
 });
