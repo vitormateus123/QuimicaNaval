@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const groupInput = document.getElementById('input-group');
     const valenceInput = document.getElementById('input-valence');
     const errorMessage = document.createElement('div');
+    const botaoConfirmar = document.getElementById('confirm-selection');
     errorMessage.id = 'error-message';
     errorMessage.style.color = 'red';
     errorMessage.style.display = 'none';
@@ -38,6 +39,22 @@ document.addEventListener('DOMContentLoaded', function () {
         elementos.forEach(item => item.classList.remove('destaque'));
         atualizarSelecao();
     });
+
+    botaoConfirmar.addEventListener('click', function() {
+        if (selecionados.length === 3) {
+            elementos.forEach(elemento => {
+                if (elemento.classList.contains('destaque')) {
+                    elemento.classList.add('finalSelection'); 
+                }
+                elemento.style.pointerEvents = 'none'; 
+            });
+            botaoLimpar.disabled = true; 
+            botaoConfirmar.disabled = true; 
+            } else {
+            alert("É necessário selecionar 3 elementos!");
+        }
+    });
+    
 
     function clearValenceIfNeeded() {
         if (periodInput.value || groupInput.value) valenceInput.value = "";
@@ -79,16 +96,17 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMessage.style.display = "block";
     }
 
+    // Envia com enter
     document.getElementById("search-element").addEventListener("click", searchElement);
     document.querySelectorAll("#input-period, #input-group, #input-valence").forEach(input => {
         input.addEventListener("keypress", event => {
             if (event.key === "Enter") {
-                event.preventDefault();
                 searchElement();
             }
         });
     });
 
+    //permite alternar entre os inputs com as setas do teclado
     document.querySelectorAll("#input-period, #input-group, #input-valence").forEach((input, index, inputs) => {
         input.addEventListener("keydown", event => {
             const moveFocus = (dir) => {
