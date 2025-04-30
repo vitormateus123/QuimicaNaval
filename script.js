@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     botaoConfirmar.addEventListener('click', function() {
-        if (selecionados.length === 3) {
+        if (selecionados.length === 1) {
             elementos.forEach(elemento => {
                 if (elemento.classList.contains('destaque')) {
                     elemento.classList.add('finalSelection'); 
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             botaoLimpar.disabled = true; 
             botaoConfirmar.disabled = true; 
             } else {
-            alert("É necessário selecionar 3 elementos!");
+            alert("É necessário selecionar pelo menos 1 elemento!");
         }
     });
     
@@ -124,3 +124,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+const nomeElemento = elemento.querySelector('small').textContent;
+
+fetch('buscarDica.php?elemento=${encodeURIcomponent(nomeElemento)}')
+    .then(res => res.text())
+    .then(dica => {
+        document.getElementById('internTip').textContent = dica;
+    })
+    .catch(err => {
+        document.getElementById('internTip').textContent = "Erro ao buscar dica";
+    });
