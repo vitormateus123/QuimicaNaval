@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function atualizarSelecao() {
         elementos.forEach(item => {
-            item.style.pointerEvents = selecionados.length >= 3 && !item.classList.contains('destaque') ? 'none' : 'auto';
+            item.style.pointerEvents = selecionados.length >= 3&& !item.classList.contains('destaque') ? 'none' : 'auto';
         });
         selecionadosNomes.textContent = selecionados.join(', ');
     }
@@ -40,20 +40,34 @@ document.addEventListener('DOMContentLoaded', function () {
         atualizarSelecao();
     });
 
-    botaoConfirmar.addEventListener('click', function() {
+    botaoConfirmar.addEventListener('click', function (event) {
+        event.preventDefault(); // Evita envio padrão, já que usaremos fetch
+    
         if (selecionados.length === 1) {
-            elementos.forEach(elemento => {
-                if (elemento.classList.contains('destaque')) {
-                    elemento.classList.add('finalSelection'); 
-                }
-                elemento.style.pointerEvents = 'none'; 
+            const elementoSelecionado = selecionados[0];
+    
+            fetch('salvarDados.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'elemento=' + encodeURIComponent(elementoSelecionado)
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("Resposta do servidor:", data); 
+                alert("Elemento enviado com sucesso!");
+                // Você pode redirecionar ou atualizar a interface aqui
+            })
+            .catch(error => {
+                console.error("Erro ao enviar:", error);
+                alert("Erro ao enviar o elemento.");
             });
-            botaoLimpar.disabled = true; 
-            botaoConfirmar.disabled = true; 
-            } else {
-            alert("É necessário selecionar pelo menos 1 elemento!");
+        } else {
+            alert("Você deve selecionar exatamente 1 elemento.");
         }
     });
+    
     
 
     function clearValenceIfNeeded() {

@@ -585,10 +585,7 @@ $nomeUsuario = $_SESSION['nome'] ?? 'Visitante';
   </div>
   <br>
   <div id="inputConfirm">
-    <form id="form-selecao" action="salvarDados.php" method="post">
-      <input type="hidden" name="elemento1" id="input-elemento1">
       <input type="submit" id="confirm-selection" value="Confirmar seleção">
-    </form>
   </div>
 <br>
 

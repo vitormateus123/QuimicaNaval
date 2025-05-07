@@ -1,38 +1,33 @@
 <?php
-session_start(); // Iniciar a sessão no topo
+session_start();
 
-$host = 'localhost';
-$banco = 'quimica_naval';
-$usuario = 'root';
-$senha = 'Jr9&zGm3@wL8F6bQ';
+$nome = $_POST['nome'];
+$acao = $_POST['acao'];
 
-// Conectar ao banco
-$conn = new mysqli($host, $usuario, $senha, $banco);
+$conn = new mysqli('localhost', 'root', 'Jr9&zGm3@wL8F6bQ', 'quimica_naval');
 
-// Verificar conexão
 if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
+    die("Erro: " . $conn->connect_error);
 }
 
-// Receber o nome do formulário
-$nome = $_POST['txtNome'];
-
-// Salvar no banco
-$sql = "INSERT INTO jogador (nome) VALUES (?)";
-$stmt = $conn->prepare($sql);
+// Inserir jogador
+$stmt = $conn->prepare("INSERT INTO jogador (nome) VALUES (?)");
 $stmt->bind_param("s", $nome);
+$stmt->execute();
 
-if ($stmt->execute()) {
-    // Salvar o nome na sessão
-    $_SESSION['nome'] = $nome;
-
-    // Redirecionar para a index.html
-    header("Location: index.php");
-    exit();
-} else {
-    echo "Erro ao salvar: " . $stmt->error;
-}
+// Obter o id do jogador recém-inserido
+$idJogador = $conn->insert_id;
+$_SESSION['idJogador'] = $idJogador;
+$_SESSION['nome'] = $nome;
 
 $stmt->close();
 $conn->close();
+
+// Redirecionar
+if ($acao === 'criar') {
+    header("Location: criarPartida.php");
+} else {
+    header("Location: entrarPartida.php");
+}
+exit;
 ?>
