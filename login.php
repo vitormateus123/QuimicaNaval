@@ -4,28 +4,38 @@ session_destroy();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <title>Química Naval</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body class="bg-light">
 
-<body class="p-5">
+    <!-- Título fixo no topo -->
+    <header class="py-4 bg-primary text-white text-center shadow-sm">
+        <h1 class="m-0">Química Naval</h1>
+    </header>
 
-    <form action="escolherSala.php" method="post">
-        <fieldset class="p-5 rounded-4 shadow-lg">
-            <label for="nome" class="form-label">Digite seu nome:</label>
-            <input type="text" name="nome" id="nome" required class="form-control"> <br><br>
-            <div class="text-center">
-            <button type="submit" class="btn btn-outline-success btn-lg shadow-sm">Entrar</button>
-            </div>
-        </fieldset>
-    </form>
+    <!-- Espaço para centralizar o formulário logo abaixo -->
+    <div class="d-flex justify-content-center mt-5">
+        <form action="escolherSala.php" method="post" class="bg-white p-4 rounded shadow-sm w-100" style="max-width: 400px;">
+            <fieldset>
+                <legend class="mb-4 text-center">Bem-vindo</legend>
 
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Digite seu nome:</label>
+                    <input type="text" name="nome" id="nome" class="form-control" required>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
+

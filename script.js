@@ -2,62 +2,79 @@ document.addEventListener('DOMContentLoaded', function () {
     const elementos = document.querySelectorAll('.nao-metais, .metais-alcalinos, .metais-alcalino-terrosos, .semimetais, .halogenios, .gases-nobres, .outros-metais, .metais-de-transicao, .lantanideos, .actinideos');
     const selecionadosNomes = document.getElementById('selecionados-nomes');
     const botaoLimpar = document.getElementById('limpar-selecao');
+    const botaoConfirmar = document.getElementById('confirm-selection');
+
     const periodInput = document.getElementById('input-period');
     const groupInput = document.getElementById('input-group');
     const valenceInput = document.getElementById('input-valence');
     const errorMessage = document.createElement('div');
-    const botaoConfirmar = document.getElementById('confirm-selection');
     errorMessage.id = 'error-message';
     errorMessage.style.color = 'red';
     errorMessage.style.display = 'none';
     document.getElementById('putElement').appendChild(errorMessage);
 
-    let selecionados = [];
-    const groupMap = { "1a": "1", "2a": "2", "3b": "3", "4b": "4", "5b": "5", "6b": "6", "7b": "7", "8b": "8", "9b": "9", "10b": "10", "1b": "11", "2b": "12", "3a": "13", "4a": "14", "5a": "15", "6a": "16", "7a": "17", "8a": "18" };
+    let selecionado = null;
+
+    const groupMap = { 
+        "1a": "1", "2a": "2", "3b": "3", "4b": "4", "5b": "5", "6b": "6", "7b": "7",
+        "8b": "8", "9b": "9", "10b": "10", "1b": "11", "2b": "12", "3a": "13", 
+        "4a": "14", "5a": "15", "6a": "16", "7a": "17", "8a": "18" 
+    };
 
     function atualizarSelecao() {
         elementos.forEach(item => {
-            item.style.pointerEvents = selecionados.length >= 3&& !item.classList.contains('destaque') ? 'none' : 'auto';
+            item.style.pointerEvents = selecionado ? 'none' : 'auto';
         });
-        selecionadosNomes.textContent = selecionados.join(', ');
+        selecionadosNomes.textContent = selecionado ? selecionado.querySelector('small').textContent : '';
     }
 
     function alternarSelecao(elemento) {
-        const nomeElemento = elemento.querySelector('small').textContent;
-        if (elemento.classList.toggle('destaque')) {
-            if (selecionados.length < 3) selecionados.push(nomeElemento);
-        } else {
-            selecionados = selecionados.filter(nome => nome !== nomeElemento);
+        if (selecionado) {
+            selecionado.classList.remove('destaque');
+            if (selecionado === elemento) {
+                selecionado = null;
+                atualizarSelecao();
+                return;
+            }
         }
+        elemento.classList.add('destaque');
+        selecionado = elemento;
         atualizarSelecao();
     }
 
-    elementos.forEach(elemento => elemento.addEventListener('click', () => alternarSelecao(elemento)));
+    elementos.forEach(elemento => 
+        elemento.addEventListener('click', () => alternarSelecao(elemento))
+    );
 
     botaoLimpar.addEventListener('click', () => {
-        selecionados = [];
-        elementos.forEach(item => item.classList.remove('destaque'));
+        if (selecionado) selecionado.classList.remove('destaque');
+        selecionado = null;
+        elementos.forEach(item => item.style.pointerEvents = 'auto');
         atualizarSelecao();
     });
 
     botaoConfirmar.addEventListener('click', function (event) {
-        event.preventDefault(); // Evita envio padrão, já que usaremos fetch
-    
-        if (selecionados.length === 1) {
-            const elementoSelecionado = selecionados[0];
-    
+        event.preventDefault();
+
+        if (selecionado) {
+            const nomeElemento = selecionado.querySelector('small').textContent;
+
             fetch('salvarDados.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'elemento=' + encodeURIComponent(elementoSelecionado)
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'elemento=' + encodeURIComponent(nomeElemento)
             })
             .then(response => response.text())
             .then(data => {
-                console.log("Resposta do servidor:", data); 
+                console.log("Resposta do servidor:", data);
                 alert("Elemento enviado com sucesso!");
-                // Você pode redirecionar ou atualizar a interface aqui
+
+                selecionado.classList.remove('destaque');
+                selecionado.classList.add('finalSelection');
+                elementos.forEach(item => item.style.pointerEvents = 'none');
+
+                botaoConfirmar.disabled = true;
+                botaoLimpar.disabled = true;
             })
             .catch(error => {
                 console.error("Erro ao enviar:", error);
@@ -67,8 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert("Você deve selecionar exatamente 1 elemento.");
         }
     });
-    
-    
 
     function clearValenceIfNeeded() {
         if (periodInput.value || groupInput.value) valenceInput.value = "";
@@ -81,7 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    [periodInput, groupInput].forEach(input => input.addEventListener("input", clearValenceIfNeeded));
+    [periodInput, groupInput].forEach(input => 
+        input.addEventListener("input", clearValenceIfNeeded)
+    );
     valenceInput.addEventListener("input", clearPeriodGroupIfNeeded);
 
     function searchElement() {
@@ -96,8 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             document.querySelectorAll("td").forEach(td => td.classList.remove("highlight"));
             group = groupMap[group] || group;
-            const element = valence ? document.querySelector(`td[data-valence='${valence}']`) : document.querySelector(`td[data-period='${period}'][data-group='${group}']`);
-            
+            const element = valence ? 
+                document.querySelector(`td[data-valence='${valence}']`) : 
+                document.querySelector(`td[data-period='${period}'][data-group='${group}']`);
+
             if (element) {
                 element.classList.add("highlight");
                 errorMessage.style.display = "none";
@@ -110,8 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMessage.style.display = "block";
     }
 
-    // Envia com enter
     document.getElementById("search-element").addEventListener("click", searchElement);
+
     document.querySelectorAll("#input-period, #input-group, #input-valence").forEach(input => {
         input.addEventListener("keypress", event => {
             if (event.key === "Enter") {
@@ -120,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    //permite alternar entre os inputs com as setas do teclado
     document.querySelectorAll("#input-period, #input-group, #input-valence").forEach((input, index, inputs) => {
         input.addEventListener("keydown", event => {
             const moveFocus = (dir) => {
@@ -138,14 +156,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-const nomeElemento = elemento.querySelector('small').textContent;
-
-fetch('buscarDica.php?elemento=${encodeURIcomponent(nomeElemento)}')
-    .then(res => res.text())
-    .then(dica => {
-        document.getElementById('internTip').textContent = dica;
-    })
-    .catch(err => {
-        document.getElementById('internTip').textContent = "Erro ao buscar dica";
-    });

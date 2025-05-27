@@ -1,7 +1,4 @@
-<?php
-session_start();
-$nomeUsuario = $_SESSION['nome'] ?? 'Visitante';
-?>
+
 <html lang="pt-br">
 
 <head>
@@ -18,7 +15,6 @@ $nomeUsuario = $_SESSION['nome'] ?? 'Visitante';
 <body>
   <h1>Química Naval</h1>
   <div>
-    <h1>Bem-vindo, <?php echo htmlspecialchars($nomeUsuario); ?>!</h1>
     <table>
       <tr>
         <td></td>

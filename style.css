@@ -338,3 +338,7 @@ input {
   cursor: not-allowed;
   background-color: #4CAF50;
 }
+.destaque {
+    background-color: #ffcc00 !important;
+    border: 2px solid #ff9900;
+}

@@ -39,27 +39,52 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Escolher Sala</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Bem-vindo, <?php echo htmlspecialchars($nome); ?>!</h2>
+<body class="bg-light">
 
-    <form action="criarPartida.php" method="post">
-        <button type="submit">Criar Sala</button>
-    </form>
+    <!-- Título -->
+    <header class="py-4 bg-primary text-white text-center shadow-sm mb-5">
+        <h1 class="m-0">Química Naval</h1>
+    </header>
 
-    <form action="entrarPartida.php" method="post">
-        <label for="sala">Digite o ID da sala:</label>
-        <input type="number" name="sala" id="sala" required>
-        <button type="submit">Entrar na Sala</button>
-    </form>
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>Bem-vindo, <?php echo htmlspecialchars($nome); ?>!</h2>
+        </div>
 
-    <h3>Jogadores já cadastrados:</h3>
-    <ul>
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <li>ID <?php echo $row['idJogador']; ?>: <?php echo htmlspecialchars($row['nome']); ?></li>
-        <?php endwhile; ?>
-    </ul>
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-4">
+                <form action="criarPartida.php" method="post">
+                    <button type="submit" class="btn btn-success btn-lg w-100">Criar Sala</button>
+                </form>
+            </div>
+        </div>
 
-    
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-6">
+                <form action="entrarPartida.php" method="post" class="card p-4 shadow-sm">
+                    <div class="mb-3">
+                        <label for="sala" class="form-label">Digite o ID da sala:</label>
+                        <input type="number" name="sala" id="sala" class="form-control" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Entrar na Sala</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <h3 class="text-center mb-3">Jogadores já cadastrados:</h3>
+        <ul class="list-group mb-5">
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <li class="list-group-item">
+                    <strong>ID <?php echo $row['idJogador']; ?>:</strong> <?php echo htmlspecialchars($row['nome']); ?>
+                </li>
+            <?php endwhile; ?>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
