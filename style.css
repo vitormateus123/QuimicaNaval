@@ -1,0 +1,344 @@
+body {
+  background-color: azure;
+  background-image: url(fundoMar.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+table {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+h1 {
+  font-family: "Kolker Brush", serif;
+  font-size: 130px;
+  text-align: center;
+  padding-top: 20px;
+  margin: 0px;
+  text-shadow: 0px 3px 3px white;
+}
+
+td {
+  width: 60px;
+  height: 60px;
+  font-family: "Garamond", "Georgia", serif;
+  /* Fonte clássica */
+  font-style: italic;
+  color: #3E2723;
+  /* Marrom escuro para imitar tinta antiga */
+}
+
+.tdBorder {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  /* Bordas sutis */
+  box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.3),
+    /* Sombra interna */
+    2px 2px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra externa */
+  font-family: "Garamond", "Georgia", serif;
+  /* Fonte clássica */
+  font-style: italic;
+  color: #3E2723;
+  /* Marrom escuro para imitar tinta antiga */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+
+#cardsInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+#putElement {
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+  width: 40%;
+  border-radius: 7px;
+  text-align: center;
+}
+
+
+#ElementTips {
+  background-color: antiquewhite;
+  padding: 15px;
+  width: 55%;
+  border-radius: 7px;
+  text-align: center;
+}
+
+
+#internPut {
+  background-color: rgb(228, 209, 187);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 7px;
+}
+
+#internTip {
+  background-color: rgb(228, 209, 187);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  height: 72%;
+  font-size: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 7px;
+  padding: 0px 10px 0px 10px;
+  align-items: center;
+}
+
+#putConfirm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: 75%;
+}
+
+input {
+  height: 45%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  font-size: 16px;
+}
+
+#putDE {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#putRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#putRow div {
+  width: 48%;
+  text-align: center;
+}
+
+.inputValence {
+  width: 100%;
+  text-align: center;
+}
+
+#search-element {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+#search-element:hover {
+  background-color: #45a049;
+}
+
+.Family {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.highlight {
+  background-color: rgb(0, 255, 0) !important;
+  border: 1px solid black;
+}
+
+.finalSelection {
+  background-color: rgb(3, 197, 3) !important;
+  border: 1px solid black;
+}
+
+.SetCenter {
+  text-align: center;
+}
+
+.text-center {
+  display: block;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.periodNumbers {
+  font-weight: bold;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.inputValence {
+  width: 100%;
+  text-align: center;
+}
+
+.pMargin {
+  margin: 0px;
+  text-align: center;
+}
+
+.nao-metais {
+  background: #B5D6A7;
+  /* Verde pastel */
+  cursor: pointer;
+}
+
+.metais-alcalinos {
+  background: #F9E79F;
+  /* Amarelo pastel */
+  cursor: pointer;
+}
+
+.metais-alcalino-terrosos {
+  background: #FAD7A0;
+  /* Laranja pastel */
+  cursor: pointer;
+}
+
+.semimetais {
+  background: #AED6F1;
+  /* Azul claro pastel */
+  cursor: pointer;
+}
+
+.halogenios {
+  background: #A3E4D7;
+  /* Verde água pastel */
+  cursor: pointer;
+}
+
+.gases-nobres {
+  background: #85C1E9;
+  /* Azul pastel */
+  cursor: pointer;
+}
+
+.outros-metais {
+  background: #D5DBDB;
+  cursor: pointer;
+  /* Cinza azulado pastel */
+}
+
+.metais-de-transicao {
+  background: #F5B7B1;
+  /* Rosa pastel */
+  cursor: pointer;
+}
+
+.lantanideos {
+  background: #D2B4DE;
+  /* Roxo pastel */
+  cursor: pointer;
+}
+
+.actinideos {
+  background: #D7BDE2;
+  /* Lilás pastel */
+  cursor: pointer;
+}
+
+.nao-metais.destaque,
+.metais-alcalinos.destaque,
+.metais-alcalino-terrosos.destaque,
+.semimetais.destaque,
+.halogenios.destaque,
+.gases-nobres.destaque,
+.outros-metais.destaque,
+.metais-de-transicao.destaque,
+.lantanideos.destaque,
+.actinideos.destaque {
+  background-color: yellow;
+  border: 1px solid red;
+}
+
+#selecionados {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: antiquewhite;
+  padding: 10px;
+  width: auto;
+  border-radius: 7px;
+}
+
+#selecionados-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#selecionados h3 {
+  margin: 0;
+}
+
+#selecionados-nomes {
+  margin: 0;
+}
+
+#limpar-selecao {
+  margin-top: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#limpar-selecao:hover {
+  background-color: darkred;
+}
+
+#limpar-selecao:disabled {
+  background-color: rgb(138, 46, 46) !important; /* Força a cor correta */
+  cursor: not-allowed !important; /* Garante que o cursor seja alterado */
+  color: cadetblue !important;
+  border: 1px solid #aaa !important;
+  opacity: 0.7 !important;
+}
+
+#inputConfirm {
+  display: flex;
+  justify-content: center;
+}
+
+#inputConfirm input {
+  background-color: #4CAF50;
+  width: 500px;
+  cursor: pointer;
+  color:white;
+}
+
+#inputConfirm input:hover{
+  background-color: #45a148;
+  width: 500px;
+  color: rgb(227, 223, 223);
+}
+
+#inputConfirm input:disabled{
+  cursor: not-allowed;
+  background-color: #4CAF50;
+}
+.destaque {
+    background-color: #ffcc00 !important;
+    border: 2px solid #ff9900;
+}
