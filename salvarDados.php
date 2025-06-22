@@ -1,73 +1,45 @@
 <?php
 session_start();
 
-$elemento = $_POST['elemento'] ?? null;
-$nomeUsuario = $_SESSION['nome'];
+$idJogador = $_SESSION['idJogador'] ?? null;
+$idJogada = $_SESSION['idJogada'] ?? null;
+$idElemento = $_POST['id'] ?? null;
 
-echo "<script> console.log('OK'); </script>";
-if ($elemento) {
-    $_SESSION['elementoSelecionado'] = $elemento;
-    echo "Elemento recebido: $elemento";
-    // Aqui você pode salvar no banco ou fazer outra ação
-} else {
-    echo "Nenhum elemento recebido.";
+if (!$idJogador || !$idJogada || !$idElemento) {
+    die("Dados incompletos.");
 }
 
-    $host = 'localhost';
-    $banco = 'quimica_naval';
-    $usuario = 'root';
-    $senha = '';
+$conn = new mysqli('localhost', 'root', '', 'quimica_naval');
+if ($conn->connect_error) {
+    die("Erro na conexão: " . $conn->connect_error);
+}
 
-    // Conectar
-    $conn = new mysqli($host, $usuario, $senha, $banco);
-
-    // Verificar conexão
-    if ($conn->connect_error) {
-        die("Erro na conexão: " . $conn->connect_error);
-    }
-
-    // Consulta SQL
-    $sql = "SELECT idDica FROM dica where elemento like '" . $elemento . "'";
-    $result = $conn->query($sql);
-    $num;
-    // Mostrar resultados
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $num = $row["idDica"];
-        }
+// Verificar se o jogador é o jogador1 ou jogador2 da jogada
+$stmt = $conn->prepare("SELECT idJogador1, idJogador2 FROM jogada WHERE idJogada = ?");
+$stmt->bind_param("i", $idJogada);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($row = $result->fetch_assoc()) {
+    if ($row['idJogador1'] == $idJogador) {
+        $sql = "UPDATE jogada SET idElemento1 = ? WHERE idJogada = ?";
+    } elseif ($row['idJogador2'] == $idJogador) {
+        $sql = "UPDATE jogada SET idElemento2 = ? WHERE idJogada = ?";
     } else {
-        echo "Nenhum jogador encontrado.";
+        die("Jogador não pertence à jogada.");
     }
+} else {
+    die("Jogada não encontrada.");
+}
+$stmt->close();
 
-
-    $sql = "SELECT idJogador FROM jogador where nome like '" . $nomeUsuario . "'";
-    $result = $conn->query($sql);
-    $num;
-    // Mostrar resultados
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $idJog = $row["idJogador"];
-        }
-    } else {
-        echo "Nenhum jogador encontrado.";
-    }
-
-    $conn = new mysqli($host, $usuario, $senha, $banco);
-
-    // Verificar conexão
-    if ($conn->connect_error) {
-        die("Falha na conexão: " . $conn->connect_error);
-    }
-    
-    // Salvar no banco
-    $sql = "INSERT INTO jogada (idJogador1, idJogador2, idElemento1, idElemento2) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiii", $idJog, $idJog, $num, $num);
-    if (!$stmt->execute()) {
-        die("Erro ao executar: " . $stmt->error);
-    } else {
-        echo "Dados inseridos com sucesso!";
-    }
-    $stmt->close();
-    $conn->close();
+// Executar update
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $idElemento, $idJogada);
+if ($stmt->execute()) {
+    echo "Elemento salvo com sucesso!";
+} else {
+    echo "Erro ao salvar elemento: " . $stmt->error;
+}
+$stmt->close();
+$conn->close();
 ?>

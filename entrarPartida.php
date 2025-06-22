@@ -2,6 +2,7 @@
 session_start();
 $idJogador2 = $_SESSION['idJogador'];
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sala = $_POST['sala'];
 

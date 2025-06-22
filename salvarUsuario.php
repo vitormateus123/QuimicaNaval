@@ -22,7 +22,6 @@ $_SESSION['nome'] = $nome;
 
 $stmt->close();
 $conn->close();
-
 // Redirecionar
 if ($acao === 'criar') {
     header("Location: criarPartida.php");
