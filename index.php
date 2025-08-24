@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Verificar se o jogador está logado e tem idJogada
+if (!isset($_SESSION['idJogador']) || !isset($_SESSION['idJogada'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$idJogador = $_SESSION['idJogador'];
+$idJogada = $_SESSION['idJogada'];
+?>
 
 <html lang="pt-br">
 

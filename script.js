@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: "id=" + encodeURIComponent(idElemento),
+        credentials: 'include'
       })
         .then((response) => response.text())
         .then((data) => {
